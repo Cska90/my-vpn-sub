@@ -11,21 +11,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Create config file
+      - name: Generate config.ini from sub.txt
         run: |
-          echo "# generated automatically" > config.yaml
+          echo "[custom]" > config.ini
+          echo "enable_rule_generator=true" >> config.ini
+          echo "overwrite_original_rules=true" >> config.ini
+          echo "" >> config.ini
+
+          # Правила
+          echo "ruleset=🌐 DIRECT,[,]GEOIP,RU" >> config.ini
+          echo "ruleset=🌐 DIRECT,[,]GEOIP,LAN" >> config.ini
+          echo "ruleset=🤖 AI,openai" >> config.ini
+          echo "ruleset=🤖 AI,gemini" >> config.ini
+          echo "ruleset=🤖 AI,claude" >> config.ini
+          echo "ruleset=🎬 MEDIA,youtube" >> config.ini
+          echo "ruleset=💬 SOCIAL,telegram" >> config.ini
+          echo "ruleset=💬 SOCIAL,whatsapp" >> config.ini
+          echo "ruleset=💬 SOCIAL,instagram" >> config.ini
+          echo "ruleset=💬 SOCIAL,facebook" >> config.ini
+          echo "ruleset=💬 SOCIAL,tiktok" >> config.ini
+          echo "ruleset=💬 SOCIAL,twitter" >> config.ini
+          echo "ruleset=🛡 VPN,4pda" >> config.ini
+          echo "ruleset=🛡 VPN,rutracker" >> config.ini
+          echo "ruleset=🛡 VPN,rutor" >> config.ini
+          echo "" >> config.ini
+
+          # Группы прокси
+          echo "custom_proxy_group=🚀 AUTO\`url-test\`.*,`https://www.gstatic.com/generate_204`300,,50" >> config.ini
+          echo "custom_proxy_group=🤖 AI select []🚀 AUTO" >> config.ini
+          echo "custom_proxy_group=🎬 MEDIA select []🚀 AUTO" >> config.ini
+          echo "custom_proxy_group=💬 SOCIAL select []🚀 AUTO" >> config.ini
+          echo "custom_proxy_group=🛡 VPN select []🚀 AUTO" >> config.ini
+          echo "custom_proxy_group=🌐 DIRECT select []DIRECT" >> config.ini
+          echo "" >> config.ini
+
+          # Добавляем все серверы из sub.txt
+          echo "[proxies]" >> config.ini
+          while IFS= read -r line
+          do
+            echo "server = $line" >> config.ini
+          done < sub.txt
+
+          echo "" >> config.ini
+          echo "enable_rule_generator=true" >> config.ini
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add config.yaml
-          # Проверка на изменения
+          git add config.ini
           if ! git diff --cached --quiet; then
-            git commit -m "Update config.yaml"
+            git commit -m "Update config.ini from sub.txt"
             git push
           else
             echo "No changes to commit"
