@@ -39,15 +39,15 @@ def parse_vless_link(link):
         name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
         query = urllib.parse.parse_qs(url_parts.query)
         
-        # Ищем ключ в параметрах. Приводим ключи к нижнему регистру на случай опечаток (например, PBK вместо pbk)
         query_lower = {k.lower(): v for k, v in query.items()}
         public_key = query_lower.get("pbk", [""])[0]
         short_id = query_lower.get("sid", [""])[0]
         
-        # ХЕЙТ-ФИЛЬТР: Reality-ключ должен быть строго длиннее 40 символов. 
-        # Если это не так — полностью бракуем ссылку, она сломает Clash.
-        if len(public_key) < 40:
-            print(f" Ссылка '{name}' ЗАБРАКОВАНА: Ключ Reality слишком короткий или отсутствует ({len(public_key)} симв.)")
+        # СТРОГАЯ ПРОВЕРКА КЛЮЧА REALITY
+        # 1. Длина должна быть не меньше 40 символов
+        # 2. Ключ не должен содержать некорректные символы вроде '_' или '-' (частая ошибка кривых ссылок)
+        if len(public_key) < 40 or "_" in public_key or "-" in public_key:
+            print(f"Ссылка '{name}' ИГНОРИРУЕТСЯ: обнаружен невалидный Reality public key.")
             return None
             
         proxy = {
@@ -93,11 +93,9 @@ def main():
             if proxy:
                 proxies.append(proxy)
                 
-    # Если все ссылки из sub.txt оказались битыми, создаем чистый рабочий DIRECT, чтобы Clash не ругался при скачивании
     if not proxies:
-        print("Внимание: Ни одна ссылка не прошла валидацию. Создаем пустой рабочий конфиг.")
         proxies.append({
-            "name": "Все ссылки в sub.txt невалидны",
+            "name": "Временная заглушка DIRECT",
             "type": "vless",
             "server": "127.0.0.1",
             "port": 443,
@@ -153,7 +151,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("Конфиг успешно пересобран с жесткой фильтрацией!")
+    print("Конфиг успешно очищен от плохих ключей!")
 
 if __name__ == "__main__":
     main()
