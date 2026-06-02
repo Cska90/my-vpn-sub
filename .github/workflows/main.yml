@@ -1,12 +1,27 @@
-name: Test
+name: Build Clash Config
 
 on:
+  push:
+    paths:
+      - 'sub.txt'
   workflow_dispatch:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Hello
-        run: echo "Workflow works"
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create config file
+        run: |
+          echo "# generated automatically" > config.yaml
+
+      - name: Commit config
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add config.yaml
+          git commit -m "Update config.yaml" || echo "No changes"
+          git push
