@@ -2,7 +2,6 @@ import os
 import urllib.parse
 import yaml
 import re
-import base64
 
 BASE_CONFIG = {
     "port": 7890,
@@ -22,103 +21,75 @@ BASE_CONFIG = {
     }
 }
 
-def is_valid_uuid(uuid_str):
-    return bool(re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", uuid_str))
-
-def clean_and_validate_pbk(pbk):
-    if not pbk:
-        return None
-    
-    # Декодирование URL может превратить '+' в пробел. Исправляем этот частый баг:
-    pbk = pbk.strip().replace(" ", "+")
-    
-    # Базовая проверка длины и символов
-    if len(pbk) < 40 or len(pbk) > 50:
-        return None
-    if not re.match(r"^[A-Za-z0-9+/=]+$", pbk):
-        return None
-        
-    # КРИТИЧЕСКИЙ ТЕСТ: Проверяем, декодируется ли строка стандартным Base64.
-    # Если внутри кривая контрольная сумма, b64decode вызовет ошибку.
-    try:
-        # Добавляем паддинг '=', если его не хватает для кратности 4
-        padded_pbk = pbk + "=" * ((4 - len(pbk) % 4) % 4)
-        base64.b64decode(padded_pbk, validate=True)
-        return pbk # Ключ идеален
-    except Exception:
-        return None # Ключ невалиден
-
 def parse_vless_link(link):
     link = link.strip()
     if not link.startswith("vless://"):
         return None
     try:
-        url_parts = urllib.parse.urlparse(link)
-        user_info = url_parts.username
-        
-        if not user_info or not is_valid_uuid(user_info.strip()):
+        # Извлекаем fragment (имя) до очистки, чтобы не потерять пробелы
+        name = "VLESS_PROXY"
+        if "#" in link:
+            link, fragment = link.split("#", 1)
+            name = urllib.parse.unquote(fragment).strip()
+
+        # Пакуем обратно плюс, если он превратился в пробел
+        link = link.replace(" ", "+")
+
+        # Находим UUID, сервер и порт регуляркой напрямую
+        match = re.match(r"vless://([^@]+)@([^:]+):(\d+)", link)
+        if not match:
             return None
             
-        server_netloc = url_parts.netloc.split('@')[-1]
-        if '?' in server_netloc:
-            server_netloc = server_netloc.split('?')[0]
-            
-        if ':' in server_netloc:
-            server, port = server_netloc.split(':')
-            try:
-                port = int(port)
-            except:
-                return None
-        else:
-            server = server_netloc
-            port = 443
-            
-        server = server.strip()
-        if not server:
-            return None
-        
-        name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
-        name = name.strip().replace(":", "-")
-        
-        query = urllib.parse.parse_qs(url_parts.query)
-        query_lower = {k.lower(): v for k, v in query.items()}
-        
-        raw_pbk = query_lower.get("pbk", [""])[0]
-        public_key = clean_and_validate_pbk(raw_pbk)
-        
-        # Если ключ не прошёл глубокую проверку — отбраковываем сервер
-        if not public_key:
-            print(f"Ссылка '{name}' ЗАБРАКОВАНА: не прошёл валидацию Base64 Reality public key.")
-            return None
-            
-        short_id = query_lower.get("sid", [""])[0].strip()
-        sni = query_lower.get("sni", [server])[0].strip()
-        
+        uuid_str = match.group(1).strip()
+        server = match.group(2).strip()
+        port = int(match.group(3).strip())
+
+        # Ищем параметры внутри ссылки через простые регулярки (так надежнее всего)
+        pbk_match = re.search(r"[?&][Pp][Bb][Kk]=([^&]+)", link)
+        sid_match = re.search(r"[?&][Ss][Ii][Dd]=([^&]+)", link)
+        sni_match = re.search(r"[?&][Ss][🇳🇳][🇮🇮]=([^&]+)", link, re.IGNORECASE) # на всякий случай sni
+        type_match = re.search(r"[?&][🇹🇹][🇾🇾][🇵🇵][🇪🇪]=([^&]+)", link, re.IGNORECASE)
+        fp_match = re.search(r"[?&][🇫🇫][🇵🇵]=([^&]+)", link, re.IGNORECASE)
+        sname_match = re.search(r"[?&]servicename=([^&]+)", link, re.IGNORECASE)
+        path_match = re.search(r"[?&]path=([^&]+)", link, re.IGNORECASE)
+
+        public_key = pbk_match.group(1).strip() if pbk_match else ""
+        short_id = sid_match.group(1).strip() if sid_match else ""
+        sni = sni_match.group(1).strip() if sni_match else server
+        network = type_match.group(1).strip() if type_match else "tcp"
+        fp = fp_match.group(1).strip() if fp_match else "chrome"
+
+        # Исправляем возможные косяки форматирования ключа (заменяем ломающие символы обратно)
+        if "_" in public_key or "-" in public_key:
+            public_key = public_key.replace("_", "/").replace("-", "+")
+
         proxy = {
-            "name": name,
+            "name": name.replace(":", "-"),
             "type": "vless",
             "server": server,
             "port": port,
-            "uuid": user_info.strip(),
+            "uuid": uuid_str,
             "tls": True,
             "udp": True,
-            "network": query_lower.get("type", ["tcp"])[0].strip(),
+            "network": network,
             "servername": sni,
             "reality-opts": {
                 "public-key": public_key,
                 "short-id": short_id
             },
-            "client-fingerprint": query_lower.get("fp", ["chrome"])[0].strip()
+            "client-fingerprint": fp
         }
-        
-        if proxy["network"] == "grpc":
-            proxy["grpc-opts"] = {"grpc-service-name": query_lower.get("servicename", [""])[0].strip()}
-        elif proxy["network"] == "ws":
-            proxy["ws-opts"] = {"path": query_lower.get("path", ["/"])[0].strip()}
-            
+
+        if network == "grpc":
+            sname = sname_match.group(1).strip() if sname_match else ""
+            proxy["grpc-opts"] = {"grpc-service-name": sname}
+        elif network == "ws":
+            path = path_match.group(1).strip() if path_match else "/"
+            proxy["ws-opts"] = {"path": path}
+
         return proxy
     except Exception as e:
-        print(f"Ошибка парсинга: {e}")
+        print(f"Ошибка: {e}")
         return None
 
 def main():
@@ -138,8 +109,9 @@ def main():
                 proxies.append(proxy)
                 
     if not proxies:
+        print("Ссылок нет, создаем DIRECT")
         proxies.append({
-            "name": "Временная заглушка DIRECT",
+            "name": "DIRECT_ЗАГЛУШКА",
             "type": "vless",
             "server": "127.0.0.1",
             "port": 443,
@@ -149,6 +121,7 @@ def main():
             "network": "tcp"
         })
 
+    # Убираем дубли имён
     seen_names = set()
     unique_proxies = []
     for p in proxies:
@@ -203,7 +176,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("ГЛУБОКАЯ ДЕКОД-ВАЛИДАЦИЯ ЗАВЕРШЕНА!")
+    print("Конфиг собран в мягком режиме!")
 
 if __name__ == "__main__":
     main()
