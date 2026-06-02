@@ -58,7 +58,7 @@ proxies:
     public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
     short-id: ''
   client-fingerprint: safari
-- name: Test-Servertuhgg
+- name: Test-Servertuhgggh
   type: vless
   server: 127.0.0.1
   port: 443
@@ -78,7 +78,7 @@ proxy-groups:
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhgg
+  - Test-Servertuhgggh
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -89,7 +89,7 @@ proxy-groups:
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhgg
+  - Test-Servertuhgggh
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -98,7 +98,7 @@ proxy-groups:
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhgg
+  - Test-Servertuhgggh
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -107,7 +107,7 @@ proxy-groups:
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhgg
+  - Test-Servertuhgggh
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -116,7 +116,7 @@ proxy-groups:
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhgg
+  - Test-Servertuhgggh
   - DIRECT
 - name: 🌐 DIRECT
   type: select
