@@ -17,19 +17,6 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: Empire_VLESS-mlxwy0ph
-  type: vless
-  server: 207.174.30.11
-  port: 443
-  uuid: da476bc1-a147-4585-b838-36dc92c903b4
-  tls: true
-  udp: true
-  network: tcp
-  servername: dl.google.com
-  reality-opts:
-    public-key: hKb7fhe_vjWTEInEXpTO7z4ve_-FbZtGH6LCWRxRYjA
-    short-id: bf8ba2896346ad
-  client-fingerprint: chrome
 - name: 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   type: vless
   server: 104.245.241.3
@@ -71,20 +58,7 @@ proxies:
     public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
     short-id: ''
   client-fingerprint: safari
-- name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.240.4
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: xhttp
-  servername: res.cdn.office.net
-  reality-opts:
-    public-key: _pfnx4mNda47T7Hyi_tNfnSXzL9fL4EKQWNu31NSkmo
-    short-id: ''
-  client-fingerprint: safari
-- name: Test-Serverg
+- name: Test-Server
   type: vless
   server: 127.0.0.1
   port: 443
@@ -101,12 +75,10 @@ proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - Empire_VLESS-mlxwy0ph
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Serverg
+  - Test-Server
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -114,45 +86,37 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - Empire_VLESS-mlxwy0ph
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Serverg
+  - Test-Server
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - Empire_VLESS-mlxwy0ph
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Serverg
+  - Test-Server
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - Empire_VLESS-mlxwy0ph
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Serverg
+  - Test-Server
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - Empire_VLESS-mlxwy0ph
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Serverg
+  - Test-Server
   - DIRECT
 - name: 🌐 DIRECT
   type: select
