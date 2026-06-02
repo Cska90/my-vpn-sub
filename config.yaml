@@ -4,6 +4,7 @@ allow-lan: true
 mode: rule
 log-level: info
 ipv6: false
+
 dns:
   enable: true
   listen: 0.0.0.0:5353
@@ -11,120 +12,95 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   default-nameserver:
-  - 114.114.114.114
-  - 8.8.8.8
+    - 114.114.114.114
+    - 8.8.8.8
   nameserver:
-  - https://doh.pub/dns-query
-  - https://dns.google/dns-query
-proxies:
-- name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.240.4
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 104.245.240.4
-  reality-opts:
-    public-key: /pfnx4mNda47T7Hyi/tNfnSXzL9fL4EKQWNu31NSkmo
-    short-id: ''
-  client-fingerprint: chrome
-- name: Empire_VLESS-mlxwy0ph
-  type: vless
-  server: 207.174.30.11
-  port: 443
-  uuid: da476bc1-a147-4585-b838-36dc92c903b4
-  tls: true
-  udp: true
-  network: tcp
-  servername: 207.174.30.11
-  reality-opts:
-    public-key: hKb7fhe/vjWTEInEXpTO7z4ve/+FbZtGH6LCWRxRYjA
-    short-id: bf8ba2896346ad
-  client-fingerprint: chrome
-- name: 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  type: vless
-  server: 104.245.241.3
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 104.245.241.3
-  reality-opts:
-    public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0
-    short-id: ''
-  client-fingerprint: chrome
+    - https://doh.pub/dns-query
+    - https://dns.google/dns-query
+
+# CLASH САМ ЗАБИРАЕТ И ПЕРЕВУПАКОВЫВАЕТ ТВОИ СЕРВЕРА
+proxy-providers:
+  my_sub:
+    type: http
+    # Твоя ссылка, пропущенная через универсальный конвертер подписок
+    url: "https://url.v1.mk/sub?target=clash&url=https://raw.githubusercontent.com/Cska90/my-vpn-sub/refs/heads/main/sub.txt"
+    interval: 3600
+    path: ./my_sub.yaml
+    health-check:
+      enable: true
+      interval: 600
+      url: http://cp.cloudflare.com/generate_204
+
 proxy-groups:
-- name: 🚀 AUTO
-  type: url-test
-  proxies:
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  url: http://cp.cloudflare.com/generate_204
-  interval: 300
-  tolerance: 50
-- name: 🤖 AI
-  type: select
-  proxies:
-  - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - DIRECT
-- name: 🎬 MEDIA
-  type: select
-  proxies:
-  - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - DIRECT
-- name: 💬 SOCIAL
-  type: select
-  proxies:
-  - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - DIRECT
-- name: 🛡 VPN
-  type: select
-  proxies:
-  - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - DIRECT
-- name: 🌐 DIRECT
-  type: select
-  proxies:
-  - DIRECT
-  - 🚀 AUTO
+  - name: 🚀 AUTO
+    type: url-test
+    use:
+      - my_sub
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+    tolerance: 50
+
+  - name: 🤖 AI
+    type: select
+    use:
+      - my_sub
+    proxies:
+      - 🚀 AUTO
+      - DIRECT
+
+  - name: 🎬 MEDIA
+    type: select
+    use:
+      - my_sub
+    proxies:
+      - 🚀 AUTO
+      - DIRECT
+
+  - name: 💬 SOCIAL
+    type: select
+    use:
+      - my_sub
+    proxies:
+      - 🚀 AUTO
+      - DIRECT
+
+  - name: 🛡 VPN
+    type: select
+    use:
+      - my_sub
+    proxies:
+      - 🚀 AUTO
+      - DIRECT
+
+  - name: 🌐 DIRECT
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 AUTO
+
 rules:
-- DOMAIN-KEYWORD,openai,🤖 AI
-- DOMAIN-KEYWORD,anthropic,🤖 AI
-- DOMAIN-KEYWORD,claude,🤖 AI
-- DOMAIN-SUFFIX,chatgpt.com,🤖 AI
-- DOMAIN-KEYWORD,youtube,🎬 MEDIA
-- DOMAIN-SUFFIX,googlevideo.com,🎬 MEDIA
-- DOMAIN-SUFFIX,netflix.com,🎬 MEDIA
-- DOMAIN-SUFFIX,telegram.org,💬 SOCIAL
-- DOMAIN-SUFFIX,telegram.me,💬 SOCIAL
-- DOMAIN-SUFFIX,t.me,💬 SOCIAL
-- DOMAIN-SUFFIX,whatsapp.com,💬 SOCIAL
-- DOMAIN-SUFFIX,whatsapp.net,💬 SOCIAL
-- DOMAIN-KEYWORD,instagram,💬 SOCIAL
-- DOMAIN-KEYWORD,facebook,💬 SOCIAL
-- DOMAIN-KEYWORD,tiktok,💬 SOCIAL
-- DOMAIN-SUFFIX,twitter.com,💬 SOCIAL
-- DOMAIN-SUFFIX,x.com,💬 SOCIAL
-- DOMAIN-SUFFIX,4pda.to,🛡 VPN
-- DOMAIN-SUFFIX,4pda.ru,🛡 VPN
-- DOMAIN-SUFFIX,rutracker.org,🛡 VPN
-- DOMAIN-SUFFIX,rutor.info,🛡 VPN
-- DOMAIN-SUFFIX,rutor.org,🛡 VPN
-- DOMAIN-KEYWORD,nnmclub,🛡 VPN
-- MATCH,🌐 DIRECT
+  - DOMAIN-KEYWORD,openai,🤖 AI
+  - DOMAIN-KEYWORD,anthropic,🤖 AI
+  - DOMAIN-KEYWORD,claude,🤖 AI
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI
+  - DOMAIN-KEYWORD,youtube,🎬 MEDIA
+  - DOMAIN-SUFFIX,googlevideo.com,🎬 MEDIA
+  - DOMAIN-SUFFIX,netflix.com,🎬 MEDIA
+  - DOMAIN-SUFFIX,telegram.org,💬 SOCIAL
+  - DOMAIN-SUFFIX,telegram.me,💬 SOCIAL
+  - DOMAIN-SUFFIX,t.me,💬 SOCIAL
+  - DOMAIN-SUFFIX,whatsapp.com,💬 SOCIAL
+  - DOMAIN-SUFFIX,whatsapp.net,💬 SOCIAL
+  - DOMAIN-KEYWORD,instagram,💬 SOCIAL
+  - DOMAIN-KEYWORD,facebook,💬 SOCIAL
+  - DOMAIN-KEYWORD,tiktok,💬 SOCIAL
+  - DOMAIN-SUFFIX,twitter.com,💬 SOCIAL
+  - DOMAIN-SUFFIX,x.com,💬 SOCIAL
+  - DOMAIN-SUFFIX,4pda.to,🛡 VPN
+  - DOMAIN-SUFFIX,4pda.ru,🛡 VPN
+  - DOMAIN-SUFFIX,rutracker.org,🛡 VPN
+  - DOMAIN-SUFFIX,rutor.info,🛡 VPN
+  - DOMAIN-SUFFIX,rutor.org,🛡 VPN
+  - DOMAIN-KEYWORD,nnmclub,🛡 VPN
+  - MATCH,🌐 DIRECT
+  
