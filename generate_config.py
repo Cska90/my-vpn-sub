@@ -1,6 +1,7 @@
 import os
 import urllib.parse
 import yaml
+import re
 
 BASE_CONFIG = {
     "port": 7890,
@@ -20,6 +21,16 @@ BASE_CONFIG = {
     }
 }
 
+def is_valid_uuid(uuid_str):
+    # Проверяем стандартный формат UUID (8-4-4-4-12 шестнадцатеричных символов)
+    return bool(re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", uuid_str))
+
+def is_valid_base64_pbk(pbk):
+    # Ключ Reality должен быть от 40 до 50 символов и содержать ТОЛЬКО символы Base64
+    if not pbk or len(pbk) < 40 or len(pbk) > 50:
+        return False
+    return bool(re.match(r"^[A-Za-z0-9+/=]+$", pbk))
+
 def parse_vless_link(link):
     link = link.strip()
     if not link.startswith("vless://"):
@@ -28,26 +39,42 @@ def parse_vless_link(link):
         url_parts = urllib.parse.urlparse(link)
         user_info = url_parts.username
         
+        # Жесткая проверка UUID
+        if not user_info or not is_valid_uuid(user_info.strip()):
+            print(f"Ссылка пропущена: неверный формат UUID.")
+            return None
+            
         server_netloc = url_parts.netloc.split('@')[-1]
+        if '?' in server_netloc:
+            server_netloc = server_netloc.split('?')[0]
+            
         if ':' in server_netloc:
             server, port = server_netloc.split(':')
-            port = int(port)
+            try:
+                port = int(port)
+            except:
+                return None
         else:
             server = server_netloc
             port = 443
+            
+        server = server.strip()
+        if not server:
+            return None
         
         name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
+        name = name.strip().replace(":", "-") # убираем двоеточия из имён, Clash их не любит
+        
         query = urllib.parse.parse_qs(url_parts.query)
-        
         query_lower = {k.lower(): v for k, v in query.items()}
-        public_key = query_lower.get("pbk", [""])[0]
-        short_id = query_lower.get("sid", [""])[0]
         
-        # СТРОГАЯ ПРОВЕРКА КЛЮЧА REALITY
-        # 1. Длина должна быть не меньше 40 символов
-        # 2. Ключ не должен содержать некорректные символы вроде '_' или '-' (частая ошибка кривых ссылок)
-        if len(public_key) < 40 or "_" in public_key or "-" in public_key:
-            print(f"Ссылка '{name}' ИГНОРИРУЕТСЯ: обнаружен невалидный Reality public key.")
+        public_key = query_lower.get("pbk", [""])[0].strip()
+        short_id = query_lower.get("sid", [""])[0].strip()
+        sni = query_lower.get("sni", [server])[0].strip()
+        
+        # Тотальная фильтрация Reality ключа
+        if not is_valid_base64_pbk(public_key):
+            print(f"Ссылка '{name}' ЗАБРАКОВАНА: неверный Reality public key (pbk).")
             return None
             
         proxy = {
@@ -55,26 +82,26 @@ def parse_vless_link(link):
             "type": "vless",
             "server": server,
             "port": port,
-            "uuid": user_info,
+            "uuid": user_info.strip(),
             "tls": True,
             "udp": True,
-            "network": query_lower.get("type", ["tcp"])[0],
-            "servername": query_lower.get("sni", [server])[0],
+            "network": query_lower.get("type", ["tcp"])[0].strip(),
+            "servername": sni,
             "reality-opts": {
                 "public-key": public_key,
                 "short-id": short_id
             },
-            "client-fingerprint": query_lower.get("fp", ["chrome"])[0]
+            "client-fingerprint": query_lower.get("fp", ["chrome"])[0].strip()
         }
         
         if proxy["network"] == "grpc":
-            proxy["grpc-opts"] = {"grpc-service-name": query_lower.get("servicename", [""])[0]}
+            proxy["grpc-opts"] = {"grpc-service-name": query_lower.get("servicename", [""])[0].strip()}
         elif proxy["network"] == "ws":
-            proxy["ws-opts"] = {"path": query_lower.get("path", ["/"])[0]}
+            proxy["ws-opts"] = {"path": query_lower.get("path", ["/"])[0].strip()}
             
         return proxy
     except Exception as e:
-        print(f"Ошибка парсинга ссылки: {e}")
+        print(f"Ошибка парсинга: {e}")
         return None
 
 def main():
@@ -104,6 +131,15 @@ def main():
             "udp": True,
             "network": "tcp"
         })
+
+    # Убираем дубликаты имён, если они есть
+    seen_names = set()
+    unique_proxies = []
+    for p in proxies:
+        if p["name"] not in seen_names:
+            seen_names.add(p["name"])
+            unique_proxies.append(p)
+    proxies = unique_proxies
 
     proxy_names = [p["name"] for p in proxies]
     
@@ -151,7 +187,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("Конфиг успешно очищен от плохих ключей!")
+    print("КОНФИГ ТОТАЛЬНО ЗАЩИЩЕН!")
 
 if __name__ == "__main__":
     main()
