@@ -20,49 +20,43 @@ jobs:
           curl -L -o subconverter.tar.gz https://github.com/tindy2013/subconverter/releases/latest/download/subconverter_linux64.tar.gz
           tar -xzf subconverter.tar.gz
           
-          # Копируем ваш sub.txt прямо в папку с конвертером, чтобы он гарантированно его увидел
+          # Копируем ваш sub.txt внутрь папки конвертера
           cp sub.txt subconverter/sub.txt
           cd subconverter
           chmod +x subconverter
           
-          # Создаем точный конфигурационный файл generate.ini с абсолютным путем
-          echo "[subconverter]" > generate.ini
-          echo "target=clash" >> generate.ini
-          echo "url=sub.txt" >> generate.ini
-          echo "output=proxies_raw.yaml" >> generate.ini
+          # Создаем чистый кастомный конфиг (клонируем структуру pref.ini)
+          echo "[🔥Custom]" > dynamic.ini
+          echo "target=clash" >> dynamic.ini
+          echo "url=sub.txt" >> dynamic.ini
           
-          # Запускаем генерацию
-          ./subconverter -g
+          # Запускаем subconverter, принудительно скормив ему наш конфиг динамической подписки
+          ./subconverter -s dynamic.ini
           
-          # Возвращаем сгенерированный файл обратно в корень репозитория
-          cp proxies_raw.yaml ../proxies_raw.yaml
+          # Переименовываем и вытаскиваем результат (subconverter по умолчанию выдает имя секции)
+          cp cl_🔥Custom.yaml ../proxies_raw.yaml || cp cl_Custom.yaml ../proxies_raw.yaml || cp proxies.yaml ../proxies_raw.yaml || mv *.yaml ../proxies_raw.yaml
           cd ..
 
       - name: Merge Proxies into Template
         run: |
-          # Проверяем, создался ли файл
+          # Проверяем, что файл успешно перехвачен в корне
           if [ ! -f proxies_raw.yaml ]; then
-            echo "Ошибка: Локальный subconverter не смог сгенерировать proxies_raw.yaml!"
+            echo "Ошибка: Файл proxies_raw.yaml не найден!"
             exit 1
           fi
 
-          # Вытаскиваем только блок с прокси (убираем лишние заголовки, если они есть)
-          if grep -q "^proxies:" proxies_raw.yaml; then
-            sed -n '/^proxies:/,$p' proxies_raw.yaml | sed '1d' > proxies_clean.yaml
-          else
-            # Если subconverter выдал только список без ключевого слова proxies:
-            cat proxies_raw.yaml > proxies_clean.yaml
-          fi
+          # Очищаем от лишнего мусора, оставляя только блок proxies
+          sed -n '/^proxies:/,$p' proxies_raw.yaml | sed '1d' > proxies_clean.yaml
 
-          # Начинаем сборку финального конфига
+          # Собираем финальный конфиг
           cat config_template.yaml > clash_profile.yaml
           echo "" >> clash_profile.yaml
           echo "proxies:" >> clash_profile.yaml
           
-          # Добавляем прокси с правильным отступом в 2 пробела для валидного YAML
+          # Выравниваем отступы в 2 пробела для валидности YAML в Clash Meta
           sed 's/^[[:space:]]*//; s/^/  /' proxies_clean.yaml >> clash_profile.yaml
 
-          # Автоматически добавляем имена прокси в группу Auto-Select (после строки "- DIRECT")
+          # Парсим имена серверов для добавления их в группу Auto-Select (после строки "- DIRECT")
           grep -E '^[[:space:]]*- name:' proxies_clean.yaml | while read -r line; do
             name=$(echo "$line" | sed "s/^[[:space:]]*- name:[[:space:]]*//; s/['\"]//g")
             sed -i "/- DIRECT/a \      - \"$name\"" clash_profile.yaml
@@ -73,6 +67,6 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add clash_profile.yaml
-          git commit -m "Update Clash Profile with local subconverter" || exit 0
+          git commit -m "Fixed subconverter build script" || exit 0
           git push
           
