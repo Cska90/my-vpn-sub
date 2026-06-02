@@ -1,4 +1,4 @@
-name: Build Clash Config
+name: Build Clash Meta Config
 
 on:
   push:
@@ -14,60 +14,86 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate config.ini from sub.txt
+      - name: Generate config.yaml from sub.txt
         run: |
-          echo "[custom]" > config.ini
-          echo "enable_rule_generator=true" >> config.ini
-          echo "overwrite_original_rules=true" >> config.ini
-          echo "" >> config.ini
-
-          # Правила
-          echo "ruleset=🌐 DIRECT,[,]GEOIP,RU" >> config.ini
-          echo "ruleset=🌐 DIRECT,[,]GEOIP,LAN" >> config.ini
-          echo "ruleset=🤖 AI,openai" >> config.ini
-          echo "ruleset=🤖 AI,gemini" >> config.ini
-          echo "ruleset=🤖 AI,claude" >> config.ini
-          echo "ruleset=🎬 MEDIA,youtube" >> config.ini
-          echo "ruleset=💬 SOCIAL,telegram" >> config.ini
-          echo "ruleset=💬 SOCIAL,whatsapp" >> config.ini
-          echo "ruleset=💬 SOCIAL,instagram" >> config.ini
-          echo "ruleset=💬 SOCIAL,facebook" >> config.ini
-          echo "ruleset=💬 SOCIAL,tiktok" >> config.ini
-          echo "ruleset=💬 SOCIAL,twitter" >> config.ini
-          echo "ruleset=🛡 VPN,4pda" >> config.ini
-          echo "ruleset=🛡 VPN,rutracker" >> config.ini
-          echo "ruleset=🛡 VPN,rutor" >> config.ini
-          echo "" >> config.ini
-
-          # Группы прокси
-          echo "custom_proxy_group=🚀 AUTO\`url-test\`.*,`https://www.gstatic.com/generate_204`300,,50" >> config.ini
-          echo "custom_proxy_group=🤖 AI select []🚀 AUTO" >> config.ini
-          echo "custom_proxy_group=🎬 MEDIA select []🚀 AUTO" >> config.ini
-          echo "custom_proxy_group=💬 SOCIAL select []🚀 AUTO" >> config.ini
-          echo "custom_proxy_group=🛡 VPN select []🚀 AUTO" >> config.ini
-          echo "custom_proxy_group=🌐 DIRECT select []DIRECT" >> config.ini
-          echo "" >> config.ini
-
-          # Добавляем все серверы из sub.txt
-          echo "[proxies]" >> config.ini
+          # --- Начало конфигурации ---
+          echo "proxies:" > config.yaml
           while IFS= read -r line
           do
-            echo "server = $line" >> config.ini
+            uuid=$(echo $line | grep -oP '(?<=vless://)[^@]+' | head -1)
+            server=$(echo $line | grep -oP '(?<=@)[^:]+')
+            port=$(echo $line | grep -oP '(?<=:)[0-9]+(?=\?)')
+            path=$(echo $line | grep -oP '(?<=path=)[^&]+')
+
+            echo "  - name: $server" >> config.yaml
+            echo "    type: vless" >> config.yaml
+            echo "    server: $server" >> config.yaml
+            echo "    port: $port" >> config.yaml
+            echo "    uuid: $uuid" >> config.yaml
+            echo "    flow: auto" >> config.yaml
+            echo "    tls: true" >> config.yaml
+            echo "    network: ws" >> config.yaml
+            echo "    ws-opts:" >> config.yaml
+            echo "      path: $path" >> config.yaml
           done < sub.txt
 
-          echo "" >> config.ini
-          echo "enable_rule_generator=true" >> config.ini
+          # --- Прокси-группы ---
+          echo "" >> config.yaml
+          echo "proxy-groups:" >> config.yaml
+          echo "  - name: AUTO" >> config.yaml
+          echo "    type: url-test" >> config.yaml
+          echo "    proxies: []" >> config.yaml
+          echo "    url: https://www.gstatic.com/generate_204" >> config.yaml
+          echo "    interval: 300" >> config.yaml
+
+          echo "  - name: AI" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies: []" >> config.yaml
+
+          echo "  - name: MEDIA" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies: []" >> config.yaml
+
+          echo "  - name: SOCIAL" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies: []" >> config.yaml
+
+          echo "  - name: VPN" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies: []" >> config.yaml
+
+          echo "  - name: DIRECT" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies: [DIRECT]" >> config.yaml
+
+          # --- Правила ---
+          echo "" >> config.yaml
+          echo "rules:" >> config.yaml
+          echo "  - GEOIP,RU,DIRECT" >> config.yaml
+          echo "  - GEOIP,LAN,DIRECT" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,youtube,MEDIA" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,telegram,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,whatsapp,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,instagram,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,facebook,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,tiktok,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,twitter,SOCIAL" >> config.yaml
+          echo "  - DOMAIN-KEYWORD,openai,AI" >> config.yaml
+          echo "  - DOMAIN-KEYWORD,gemini,AI" >> config.yaml
+          echo "  - DOMAIN-KEYWORD,claude,AI" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,4pda,VPN" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,rutracker,VPN" >> config.yaml
+          echo "  - DOMAIN-SUFFIX,rutor,VPN" >> config.yaml
 
       - name: Commit and push changes
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add config.ini
+          git add config.yaml
           if ! git diff --cached --quiet; then
-            git commit -m "Update config.ini from sub.txt"
+            git commit -m "Update config.yaml from sub.txt"
             git push
           else
             echo "No changes to commit"
-          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
