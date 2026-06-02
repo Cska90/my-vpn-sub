@@ -41,7 +41,7 @@ proxies:
   servername: cdn.steamstatic.com
   reality-opts:
     public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0
-    short-id: ''
+    short-id: a1b2c3d4
   client-fingerprint: safari
 - name: 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
@@ -54,7 +54,7 @@ proxies:
   servername: cdn.steamstatic.com
   reality-opts:
     public-key: eJeVlxdi2YBV1YpPVCcCgTez80y8ny27SQoZZVBFGyc
-    short-id: ''
+    short-id: a1b2c3d4
   client-fingerprint: safari
   grpc-opts:
     grpc-service-name: TunService
@@ -69,7 +69,7 @@ proxies:
   servername: download.nvidia.com
   reality-opts:
     public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
-    short-id: ''
+    short-id: a1b2c3d4
   client-fingerprint: safari
 - name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
@@ -82,9 +82,9 @@ proxies:
   servername: res.cdn.office.net
   reality-opts:
     public-key: _pfnx4mNda47T7Hyi_tNfnSXzL9fL4EKQWNu31NSkmo
-    short-id: ''
+    short-id: a1b2c3d4
   client-fingerprint: safari
-- name: Test-Servergj
+- name: Test-Servergjh
   type: vless
   server: 127.0.0.1
   port: 443
@@ -106,7 +106,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergj
+  - Test-Servergjh
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -119,7 +119,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergj
+  - Test-Servergjh
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -130,7 +130,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergj
+  - Test-Servergjh
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -141,7 +141,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergj
+  - Test-Servergjh
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -152,7 +152,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergj
+  - Test-Servergjh
   - DIRECT
 - name: 🌐 DIRECT
   type: select
