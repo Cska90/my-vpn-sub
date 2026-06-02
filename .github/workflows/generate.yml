@@ -27,16 +27,9 @@ jobs:
     - name: Run Generator Script
       run: python generate_config.py
 
-    - name: Commit and Push Config
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        
-        if git diff --quiet config.yaml; then
-          echo "Изменений в конфиге нет."
-        else
-          git add config.yaml
-          git commit -m "🤖 Автогенерация config.yaml [skip ci]"
-          git push
-        fi
+    - name: Auto Commit Config File
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "🤖 Автогенерация config.yaml [skip ci]"
+        file_pattern: 'config.yaml'
         
