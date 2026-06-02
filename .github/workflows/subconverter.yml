@@ -1,1 +1,44 @@
+name: Build Clash Subscription
 
+on:
+  push:
+    paths:
+      - 'sub.txt'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download subconverter
+        run: |
+          git clone https://github.com/tindy2013/subconverter.git
+
+      - name: Copy subscription
+        run: |
+          cp sub.txt subconverter/sub.txt
+
+      - name: Generate Clash config
+        run: |
+          cd subconverter
+          chmod +x subconverter
+          ./subconverter
+
+      - name: Copy result
+        run: |
+          cp subconverter/output/*.yaml config.yaml || true
+
+      - name: Commit config
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          git add config.yaml
+
+          git commit -m "Update config.yaml" || echo "No changes"
+
+          git push
