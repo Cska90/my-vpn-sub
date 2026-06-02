@@ -41,7 +41,7 @@ proxies:
   servername: cdn.steamstatic.com
   reality-opts:
     public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0
-    short-id: a1b2c3d4
+    short-id: ''
   client-fingerprint: safari
 - name: 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
@@ -54,7 +54,7 @@ proxies:
   servername: cdn.steamstatic.com
   reality-opts:
     public-key: eJeVlxdi2YBV1YpPVCcCgTez80y8ny27SQoZZVBFGyc
-    short-id: a1b2c3d4
+    short-id: ''
   client-fingerprint: safari
   grpc-opts:
     grpc-service-name: TunService
@@ -69,7 +69,7 @@ proxies:
   servername: download.nvidia.com
   reality-opts:
     public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
-    short-id: a1b2c3d4
+    short-id: ''
   client-fingerprint: safari
 - name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
@@ -82,7 +82,7 @@ proxies:
   servername: res.cdn.office.net
   reality-opts:
     public-key: _pfnx4mNda47T7Hyi_tNfnSXzL9fL4EKQWNu31NSkmo
-    short-id: a1b2c3d4
+    short-id: ''
   client-fingerprint: safari
 - name: Test-Servergjh
   type: vless
