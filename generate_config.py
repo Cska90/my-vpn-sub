@@ -39,15 +39,13 @@ def parse_vless_link(link):
         name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
         query = urllib.parse.parse_qs(url_parts.query)
         
-        # Извлекаем Reality ключи
         public_key = query.get("pbk", [""])[0]
         short_id = query.get("sid", [""])[0]
         
-        # Проверка валидности Reality ключа (он должен быть длиной 43 символа в base64)
-        # Если ключ "fake" или слишком короткий, заменяем на валидный по длине тестовый ключ, чтобы клиент не падал
+        # Строгая проверка: если ключа нет или он явно битый (меньше 40 символов) -> ИГНОРИРУЕМ весь прокси
         if not public_key or len(public_key) < 40:
-            print(f"Предупреждение: у прокси {name} невалидный или отсутствующий pbk. Заменяем на тестовый.")
-            public_key = "eXAmPlEpYmtleVJlYWxpdHlTcGVjU3RyaW5nMDBlbWFpbA" # валидный по структуре ключ
+            print(f"Прокси '{name}' пропущен: невалидный или отсутствующий REALITY public key (pbk).")
+            return None
             
         proxy = {
             "name": name,
@@ -61,7 +59,7 @@ def parse_vless_link(link):
             "servername": query.get("sni", [server])[0],
             "reality-opts": {
                 "public-key": public_key,
-                "short-id": short_id if short_id else "a1b2c3d4"
+                "short-id": short_id if short_id else ""
             },
             "client-fingerprint": query.get("fp", ["chrome"])[0]
         }
@@ -92,22 +90,17 @@ def main():
             if proxy:
                 proxies.append(proxy)
                 
+    # Если рабочие прокси отсутствуют вообще, создаем один заведомо чистый DIRECT профиль
     if not proxies:
         proxies.append({
-            "name": "Добавьте ссылки в sub.txt",
+            "name": "Временная заглушка DIRECT",
             "type": "vless",
-            "server": "1.1.1.1",
+            "server": "127.0.0.1",
             "port": 443,
             "uuid": "00000000-0000-0000-0000-000000000000",
-            "tls": True,
+            "tls": False,
             "udp": True,
-            "network": "tcp",
-            "servername": "cloudflare.com",
-            "reality-opts": {
-                "public-key": "eXAmPlEpYmtleVJlYWxpdHlTcGVjU3RyaW5nMDBlbWFpbA",
-                "short-id": "a1b2c3d4"
-            },
-            "client-fingerprint": "chrome"
+            "network": "tcp"
         })
 
     proxy_names = [p["name"] for p in proxies]
@@ -156,7 +149,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("Конфиг успешно перезаписан!")
+    print("Конфиг успешно отфильтрован и перезаписан!")
 
 if __name__ == "__main__":
     main()
