@@ -84,7 +84,7 @@ proxies:
     public-key: _pfnx4mNda47T7Hyi_tNfnSXzL9fL4EKQWNu31NSkmo
     short-id: ''
   client-fingerprint: safari
-- name: Test-Servergjh
+- name: Test-Serverg
   type: vless
   server: 127.0.0.1
   port: 443
@@ -106,7 +106,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergjh
+  - Test-Serverg
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -119,7 +119,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergjh
+  - Test-Serverg
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -130,7 +130,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergjh
+  - Test-Serverg
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -141,7 +141,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergjh
+  - Test-Serverg
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -152,7 +152,7 @@ proxy-groups:
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servergjh
+  - Test-Serverg
   - DIRECT
 - name: 🌐 DIRECT
   type: select
