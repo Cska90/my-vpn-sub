@@ -17,68 +17,19 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  type: vless
-  server: 104.245.241.3
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: xhttp
-  servername: cdn.steamstatic.com
-  reality-opts:
-    public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0
-    short-id: ''
-  client-fingerprint: safari
-- name: 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.243.3
-  port: 8443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: grpc
-  servername: cdn.steamstatic.com
-  reality-opts:
-    public-key: eJeVlxdi2YBV1YpPVCcCgTez80y8ny27SQoZZVBFGyc
-    short-id: ''
-  client-fingerprint: safari
-  grpc-opts:
-    grpc-service-name: TunService
-- name: 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.243.3
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: xhttp
-  servername: download.nvidia.com
-  reality-opts:
-    public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
-    short-id: ''
-  client-fingerprint: safari
-- name: Test-Servertuhggghgjj
+- name: Временная заглушка DIRECT
   type: vless
   server: 127.0.0.1
   port: 443
-  uuid: b7a1c2d3-e4f5-6a7b-8c9d-0e1f2a3b4c5d
-  tls: true
+  uuid: 00000000-0000-0000-0000-000000000000
+  tls: false
   udp: true
   network: tcp
-  servername: yahoo.co.jp
-  reality-opts:
-    public-key: eXAmPlEpYmtleVJlYWxpdHlTcGVjU3RyaW5nMDBlbWFpbA
-    short-id: a1b2c3d4
-  client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhggghgjj
+  - Временная заглушка DIRECT
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -86,37 +37,25 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhggghgjj
+  - Временная заглушка DIRECT
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhggghgjj
+  - Временная заглушка DIRECT
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhggghgjj
+  - Временная заглушка DIRECT
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
-  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Test-Servertuhggghgjj
+  - Временная заглушка DIRECT
   - DIRECT
 - name: 🌐 DIRECT
   type: select
