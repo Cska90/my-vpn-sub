@@ -17,19 +17,38 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: Временная заглушка DIRECT
+- name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
-  server: 127.0.0.1
+  server: 104.245.240.4
   port: 443
-  uuid: 00000000-0000-0000-0000-000000000000
-  tls: false
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
   udp: true
   network: tcp
+  servername: 104.245.240.4
+  reality-opts:
+    public-key: /pfnx4mNda47T7Hyi/tNfnSXzL9fL4EKQWNu31NSkmo
+    short-id: ''
+  client-fingerprint: chrome
+- name: Empire_VLESS-mlxwy0ph
+  type: vless
+  server: 207.174.30.11
+  port: 443
+  uuid: da476bc1-a147-4585-b838-36dc92c903b4
+  tls: true
+  udp: true
+  network: tcp
+  servername: 207.174.30.11
+  reality-opts:
+    public-key: hKb7fhe/vjWTEInEXpTO7z4ve/+FbZtGH6LCWRxRYjA
+    short-id: bf8ba2896346ad
+  client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - Временная заглушка DIRECT
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Empire_VLESS-mlxwy0ph
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -37,25 +56,29 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - Временная заглушка DIRECT
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Empire_VLESS-mlxwy0ph
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - Временная заглушка DIRECT
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Empire_VLESS-mlxwy0ph
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - Временная заглушка DIRECT
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Empire_VLESS-mlxwy0ph
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - Временная заглушка DIRECT
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Empire_VLESS-mlxwy0ph
   - DIRECT
 - name: 🌐 DIRECT
   type: select
