@@ -2,6 +2,7 @@ import os
 import urllib.parse
 import yaml
 import re
+import base64
 
 BASE_CONFIG = {
     "port": 7890,
@@ -22,14 +23,30 @@ BASE_CONFIG = {
 }
 
 def is_valid_uuid(uuid_str):
-    # Проверяем стандартный формат UUID (8-4-4-4-12 шестнадцатеричных символов)
     return bool(re.match(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$", uuid_str))
 
-def is_valid_base64_pbk(pbk):
-    # Ключ Reality должен быть от 40 до 50 символов и содержать ТОЛЬКО символы Base64
-    if not pbk or len(pbk) < 40 or len(pbk) > 50:
-        return False
-    return bool(re.match(r"^[A-Za-z0-9+/=]+$", pbk))
+def clean_and_validate_pbk(pbk):
+    if not pbk:
+        return None
+    
+    # Декодирование URL может превратить '+' в пробел. Исправляем этот частый баг:
+    pbk = pbk.strip().replace(" ", "+")
+    
+    # Базовая проверка длины и символов
+    if len(pbk) < 40 or len(pbk) > 50:
+        return None
+    if not re.match(r"^[A-Za-z0-9+/=]+$", pbk):
+        return None
+        
+    # КРИТИЧЕСКИЙ ТЕСТ: Проверяем, декодируется ли строка стандартным Base64.
+    # Если внутри кривая контрольная сумма, b64decode вызовет ошибку.
+    try:
+        # Добавляем паддинг '=', если его не хватает для кратности 4
+        padded_pbk = pbk + "=" * ((4 - len(pbk) % 4) % 4)
+        base64.b64decode(padded_pbk, validate=True)
+        return pbk # Ключ идеален
+    except Exception:
+        return None # Ключ невалиден
 
 def parse_vless_link(link):
     link = link.strip()
@@ -39,9 +56,7 @@ def parse_vless_link(link):
         url_parts = urllib.parse.urlparse(link)
         user_info = url_parts.username
         
-        # Жесткая проверка UUID
         if not user_info or not is_valid_uuid(user_info.strip()):
-            print(f"Ссылка пропущена: неверный формат UUID.")
             return None
             
         server_netloc = url_parts.netloc.split('@')[-1]
@@ -63,20 +78,22 @@ def parse_vless_link(link):
             return None
         
         name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
-        name = name.strip().replace(":", "-") # убираем двоеточия из имён, Clash их не любит
+        name = name.strip().replace(":", "-")
         
         query = urllib.parse.parse_qs(url_parts.query)
         query_lower = {k.lower(): v for k, v in query.items()}
         
-        public_key = query_lower.get("pbk", [""])[0].strip()
+        raw_pbk = query_lower.get("pbk", [""])[0]
+        public_key = clean_and_validate_pbk(raw_pbk)
+        
+        # Если ключ не прошёл глубокую проверку — отбраковываем сервер
+        if not public_key:
+            print(f"Ссылка '{name}' ЗАБРАКОВАНА: не прошёл валидацию Base64 Reality public key.")
+            return None
+            
         short_id = query_lower.get("sid", [""])[0].strip()
         sni = query_lower.get("sni", [server])[0].strip()
         
-        # Тотальная фильтрация Reality ключа
-        if not is_valid_base64_pbk(public_key):
-            print(f"Ссылка '{name}' ЗАБРАКОВАНА: неверный Reality public key (pbk).")
-            return None
-            
         proxy = {
             "name": name,
             "type": "vless",
@@ -132,7 +149,6 @@ def main():
             "network": "tcp"
         })
 
-    # Убираем дубликаты имён, если они есть
     seen_names = set()
     unique_proxies = []
     for p in proxies:
@@ -187,7 +203,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("КОНФИГ ТОТАЛЬНО ЗАЩИЩЕН!")
+    print("ГЛУБОКАЯ ДЕКОД-ВАЛИДАЦИЯ ЗАВЕРШЕНА!")
 
 if __name__ == "__main__":
     main()
