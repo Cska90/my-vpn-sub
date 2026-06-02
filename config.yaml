@@ -1,0 +1,186 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+dns:
+  enable: true
+  listen: 0.0.0.0:5353
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+  - 114.114.114.114
+  - 8.8.8.8
+  nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.google/dns-query
+proxies:
+- name: Empire_VLESS-mlxwy0ph
+  type: vless
+  server: 207.174.30.11
+  port: 443
+  uuid: da476bc1-a147-4585-b838-36dc92c903b4
+  tls: true
+  udp: true
+  network: tcp
+  servername: dl.google.com
+  reality-opts:
+    public-key: hKb7fhe_vjWTEInEXpTO7z4ve_-FbZtGH6LCWRxRYjA
+    short-id: bf8ba2896346ad
+  client-fingerprint: chrome
+- name: 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  type: vless
+  server: 104.245.241.3
+  port: 443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
+  udp: true
+  network: xhttp
+  servername: cdn.steamstatic.com
+  reality-opts:
+    public-key: Ot7NIMwy588LBegSSLxqxzXh9MszA0CxFPHbSAj7PR0
+    short-id: ''
+  client-fingerprint: safari
+- name: 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  type: vless
+  server: 104.245.243.3
+  port: 8443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
+  udp: true
+  network: grpc
+  servername: cdn.steamstatic.com
+  reality-opts:
+    public-key: eJeVlxdi2YBV1YpPVCcCgTez80y8ny27SQoZZVBFGyc
+    short-id: ''
+  client-fingerprint: safari
+  grpc-opts:
+    grpc-service-name: TunService
+- name: 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  type: vless
+  server: 104.245.243.3
+  port: 443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
+  udp: true
+  network: xhttp
+  servername: download.nvidia.com
+  reality-opts:
+    public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
+    short-id: ''
+  client-fingerprint: safari
+- name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  type: vless
+  server: 104.245.240.4
+  port: 443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
+  udp: true
+  network: xhttp
+  servername: res.cdn.office.net
+  reality-opts:
+    public-key: _pfnx4mNda47T7Hyi_tNfnSXzL9fL4EKQWNu31NSkmo
+    short-id: ''
+  client-fingerprint: safari
+- name: Test-Servergj
+  type: vless
+  server: 127.0.0.1
+  port: 443
+  uuid: b7a1c2d3-e4f5-6a7b-8c9d-0e1f2a3b4c5d
+  tls: true
+  udp: true
+  network: tcp
+  servername: yahoo.co.jp
+  reality-opts:
+    public-key: eXAmPlEpYmtleVJlYWxpdHlTcGVjU3RyaW5nMDBlbWFpbA
+    short-id: a1b2c3d4
+  client-fingerprint: chrome
+proxy-groups:
+- name: 🚀 AUTO
+  type: url-test
+  proxies:
+  - Empire_VLESS-mlxwy0ph
+  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Test-Servergj
+  url: http://cp.cloudflare.com/generate_204
+  interval: 300
+  tolerance: 50
+- name: 🤖 AI
+  type: select
+  proxies:
+  - 🚀 AUTO
+  - Empire_VLESS-mlxwy0ph
+  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Test-Servergj
+  - DIRECT
+- name: 🎬 MEDIA
+  type: select
+  proxies:
+  - 🚀 AUTO
+  - Empire_VLESS-mlxwy0ph
+  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Test-Servergj
+  - DIRECT
+- name: 💬 SOCIAL
+  type: select
+  proxies:
+  - 🚀 AUTO
+  - Empire_VLESS-mlxwy0ph
+  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Test-Servergj
+  - DIRECT
+- name: 🛡 VPN
+  type: select
+  proxies:
+  - 🚀 AUTO
+  - Empire_VLESS-mlxwy0ph
+  - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
+  - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - Test-Servergj
+  - DIRECT
+- name: 🌐 DIRECT
+  type: select
+  proxies:
+  - DIRECT
+  - 🚀 AUTO
+rules:
+- DOMAIN-KEYWORD,openai,🤖 AI
+- DOMAIN-KEYWORD,anthropic,🤖 AI
+- DOMAIN-KEYWORD,claude,🤖 AI
+- DOMAIN-SUFFIX,chatgpt.com,🤖 AI
+- DOMAIN-KEYWORD,youtube,🎬 MEDIA
+- DOMAIN-SUFFIX,googlevideo.com,🎬 MEDIA
+- DOMAIN-SUFFIX,netflix.com,🎬 MEDIA
+- DOMAIN-SUFFIX,telegram.org,💬 SOCIAL
+- DOMAIN-SUFFIX,telegram.me,💬 SOCIAL
+- DOMAIN-SUFFIX,t.me,💬 SOCIAL
+- DOMAIN-SUFFIX,whatsapp.com,💬 SOCIAL
+- DOMAIN-SUFFIX,whatsapp.net,💬 SOCIAL
+- DOMAIN-KEYWORD,instagram,💬 SOCIAL
+- DOMAIN-KEYWORD,facebook,💬 SOCIAL
+- DOMAIN-KEYWORD,tiktok,💬 SOCIAL
+- DOMAIN-SUFFIX,twitter.com,💬 SOCIAL
+- DOMAIN-SUFFIX,x.com,💬 SOCIAL
+- DOMAIN-SUFFIX,4pda.to,🛡 VPN
+- DOMAIN-SUFFIX,4pda.ru,🛡 VPN
+- DOMAIN-SUFFIX,rutracker.org,🛡 VPN
+- DOMAIN-SUFFIX,rutor.info,🛡 VPN
+- DOMAIN-SUFFIX,rutor.org,🛡 VPN
+- DOMAIN-KEYWORD,nnmclub,🛡 VPN
+- MATCH,🌐 DIRECT
