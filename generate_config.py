@@ -39,12 +39,15 @@ def parse_vless_link(link):
         name = urllib.parse.unquote(url_parts.fragment) if url_parts.fragment else f"VLESS_{server}_{port}"
         query = urllib.parse.parse_qs(url_parts.query)
         
-        public_key = query.get("pbk", [""])[0]
-        short_id = query.get("sid", [""])[0]
+        # Ищем ключ в параметрах. Приводим ключи к нижнему регистру на случай опечаток (например, PBK вместо pbk)
+        query_lower = {k.lower(): v for k, v in query.items()}
+        public_key = query_lower.get("pbk", [""])[0]
+        short_id = query_lower.get("sid", [""])[0]
         
-        # Строгая проверка: если ключа нет или он явно битый (меньше 40 символов) -> ИГНОРИРУЕМ весь прокси
-        if not public_key or len(public_key) < 40:
-            print(f"Прокси '{name}' пропущен: невалидный или отсутствующий REALITY public key (pbk).")
+        # ХЕЙТ-ФИЛЬТР: Reality-ключ должен быть строго длиннее 40 символов. 
+        # Если это не так — полностью бракуем ссылку, она сломает Clash.
+        if len(public_key) < 40:
+            print(f" Ссылка '{name}' ЗАБРАКОВАНА: Ключ Reality слишком короткий или отсутствует ({len(public_key)} симв.)")
             return None
             
         proxy = {
@@ -55,19 +58,19 @@ def parse_vless_link(link):
             "uuid": user_info,
             "tls": True,
             "udp": True,
-            "network": query.get("type", ["tcp"])[0],
-            "servername": query.get("sni", [server])[0],
+            "network": query_lower.get("type", ["tcp"])[0],
+            "servername": query_lower.get("sni", [server])[0],
             "reality-opts": {
                 "public-key": public_key,
-                "short-id": short_id if short_id else ""
+                "short-id": short_id
             },
-            "client-fingerprint": query.get("fp", ["chrome"])[0]
+            "client-fingerprint": query_lower.get("fp", ["chrome"])[0]
         }
         
         if proxy["network"] == "grpc":
-            proxy["grpc-opts"] = {"grpc-service-name": query.get("serviceName", [""])[0]}
+            proxy["grpc-opts"] = {"grpc-service-name": query_lower.get("servicename", [""])[0]}
         elif proxy["network"] == "ws":
-            proxy["ws-opts"] = {"path": query.get("path", ["/"])[0]}
+            proxy["ws-opts"] = {"path": query_lower.get("path", ["/"])[0]}
             
         return proxy
     except Exception as e:
@@ -90,10 +93,11 @@ def main():
             if proxy:
                 proxies.append(proxy)
                 
-    # Если рабочие прокси отсутствуют вообще, создаем один заведомо чистый DIRECT профиль
+    # Если все ссылки из sub.txt оказались битыми, создаем чистый рабочий DIRECT, чтобы Clash не ругался при скачивании
     if not proxies:
+        print("Внимание: Ни одна ссылка не прошла валидацию. Создаем пустой рабочий конфиг.")
         proxies.append({
-            "name": "Временная заглушка DIRECT",
+            "name": "Все ссылки в sub.txt невалидны",
             "type": "vless",
             "server": "127.0.0.1",
             "port": 443,
@@ -149,7 +153,7 @@ def main():
     with open(output_file, "w", encoding="utf-8") as f:
         yaml.dump(config, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
         
-    print("Конфиг успешно отфильтрован и перезаписан!")
+    print("Конфиг успешно пересобран с жесткой фильтрацией!")
 
 if __name__ == "__main__":
     main()
