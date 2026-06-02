@@ -16,44 +16,56 @@ jobs:
 
       - name: Download and setup Subconverter locally
         run: |
-          # Скачиваем официальный локальный subconverter для Linux
+          # Скачиваем и распаковываем subconverter
           curl -L -o subconverter.tar.gz https://github.com/tindy2013/subconverter/releases/latest/download/subconverter_linux64.tar.gz
           tar -xzf subconverter.tar.gz
+          
+          # Копируем ваш sub.txt прямо в папку с конвертером, чтобы он гарантированно его увидел
+          cp sub.txt subconverter/sub.txt
           cd subconverter
           chmod +x subconverter
           
-          # Создаем базовый конфиг генерации (generate.ini)
+          # Создаем точный конфигурационный файл generate.ini с абсолютным путем
           echo "[subconverter]" > generate.ini
           echo "target=clash" >> generate.ini
-          echo "url=../sub.txt" >> generate.ini
-          echo "output=../proxies_raw.yaml" >> generate.ini
+          echo "url=sub.txt" >> generate.ini
+          echo "output=proxies_raw.yaml" >> generate.ini
           
-          # Запускаем локальную конвертацию без сети
+          # Запускаем генерацию
           ./subconverter -g
+          
+          # Возвращаем сгенерированный файл обратно в корень репозитория
+          cp proxies_raw.yaml ../proxies_raw.yaml
           cd ..
 
       - name: Merge Proxies into Template
         run: |
-          # 1. Проверяем, что файл создался, и очищаем его от лишних блоков, оставляя только чистый список прокси
-          if [ -f proxies_raw.yaml ]; then
-            # Вырезаем из сгенерированного файла всё, что идет после строки "proxies:"
-            sed -n '/^proxies:/,$p' proxies_raw.yaml | sed '1d' > proxies_clean.yaml
-          else
-            echo "Ошибка: Серверы не сконвертировались!" && exit 1
+          # Проверяем, создался ли файл
+          if [ ! -f proxies_raw.yaml ]; then
+            echo "Ошибка: Локальный subconverter не смог сгенерировать proxies_raw.yaml!"
+            exit 1
           fi
 
-          # 2. Собираем итоговый конфиг из шаблона
+          # Вытаскиваем только блок с прокси (убираем лишние заголовки, если они есть)
+          if grep -q "^proxies:" proxies_raw.yaml; then
+            sed -n '/^proxies:/,$p' proxies_raw.yaml | sed '1d' > proxies_clean.yaml
+          else
+            # Если subconverter выдал только список без ключевого слова proxies:
+            cat proxies_raw.yaml > proxies_clean.yaml
+          fi
+
+          # Начинаем сборку финального конфига
           cat config_template.yaml > clash_profile.yaml
           echo "" >> clash_profile.yaml
           echo "proxies:" >> clash_profile.yaml
-          cat proxies_clean.yaml >> clash_profile.yaml
+          
+          # Добавляем прокси с правильным отступом в 2 пробела для валидного YAML
+          sed 's/^[[:space:]]*//; s/^/  /' proxies_clean.yaml >> clash_profile.yaml
 
-          # 3. Автоматически прописываем имена серверов в группу автовыбора
-          # Извлекаем все имена серверов
+          # Автоматически добавляем имена прокси в группу Auto-Select (после строки "- DIRECT")
           grep -E '^[[:space:]]*- name:' proxies_clean.yaml | while read -r line; do
-            name=$(echo "$line" | sed 's/^[[:space:]]*- name:[[:space:]]*//')
-            # Вставляем имя сервера в секцию proxies группы Auto-Select (после строки "- DIRECT")
-            sed -i "/- DIRECT/a \      - $name" clash_profile.yaml
+            name=$(echo "$line" | sed "s/^[[:space:]]*- name:[[:space:]]*//; s/['\"]//g")
+            sed -i "/- DIRECT/a \      - \"$name\"" clash_profile.yaml
           done
 
       - name: Commit and Push config
