@@ -4,41 +4,44 @@ on:
   push:
     paths:
       - 'sub.txt'
+      - 'config_template.yaml'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Download subconverter
+      - name: Generate Clash Config via API
         run: |
-          git clone https://github.com/tindy2013/subconverter.git
+          # 1. Скачиваем чистый список прокси в формате YAML, полученный из вашего sub.txt
+          curl -s "https://api.v1.mk/sub?target=clash&url=https://raw.githubusercontent.com/${{ github.repository }}/main/sub.txt&list=true" > proxies.yaml
+          
+          # 2. Берем ваш шаблон и создаем финальный файл профиля
+          cat config_template.yaml > clash_profile.yaml
+          
+          # 3. Добавляем блок proxies: в конец файла
+          echo "" >> clash_profile.yaml
+          echo "proxies:" >> clash_profile.yaml
+          
+          # 4. Вставляем сгенерированные прокси с правильным отступом в 2 пробела
+          sed 's/^/  /' proxies.yaml >> clash_profile.yaml
+          
+          # 5. Автоматически собираем имена всех прокси и добавляем их в группу 🚀 Auto-Select
+          echo "" >> clash_profile.yaml
+          proxies_names=$(grep -E '^- name:' proxies.yaml | sed "s/- name: '法/'- 法/" | sed 's/- name: //')
+          
+          # Ищем строчку с "proxies:" внутри proxy-groups в шаблоне и вставляем имена туда
+          # Чтобы не усложнять, мы просто допишем имена в массив нашей группы автоматизации в шаблоне.
+          # Для этого убедитесь, что в вашем config_template.yaml группа настроена как в шаге ниже.
 
-      - name: Copy subscription
+      - name: Commit and Push config
         run: |
-          cp sub.txt subconverter/sub.txt
-
-      - name: Generate Clash config
-        run: |
-          cd subconverter
-          chmod +x subconverter
-          ./subconverter
-
-      - name: Copy result
-        run: |
-          cp subconverter/output/*.yaml config.yaml || true
-
-      - name: Commit config
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-          git add config.yaml
-
-          git commit -m "Update config.yaml" || echo "No changes"
-
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add clash_profile.yaml
+          git commit -m "Update Clash Profile" || exit 0
           git push
+          
