@@ -1,0 +1,36 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+# Группы прокси с автовыбором
+proxy-groups:
+  - name: 🚀 Auto-Select (URL-Test)
+    type: url-test
+    proxies:
+      - DIRECT
+    url: 'http://www.gstatic.com/generate_204'
+    interval: 300
+    tolerance: 50
+
+  - name: 🔰 Proxy-Manual
+    type: select
+    proxies:
+      - 🚀 Auto-Select (URL-Test)
+      - DIRECT
+
+rules:
+  - MATCH, 🔰 Proxy-Manual
+  
+
+proxies:
+  <html>
+  <head><title>403 Forbidden</title></head>
+  <body>
+  <center><h1>403 Forbidden</h1></center>
+  <hr><center>nginx</center>
+  </body>
+  </html>
+
