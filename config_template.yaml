@@ -9,11 +9,11 @@ external-controller: 127.0.0.1:9090
 proxy-groups:
   - name: 🚀 Auto-Select (URL-Test)
     type: url-test
-    proxies:
-      - DIRECT
     url: 'http://www.gstatic.com/generate_204'
     interval: 300
     tolerance: 50
+    proxies:
+      - DIRECT
 
   - name: 🔰 Proxy-Manual
     type: select
