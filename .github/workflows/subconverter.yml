@@ -14,34 +14,53 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Generate Clash Config via API
+      - name: Download and setup Subconverter locally
         run: |
-          # 1. Скачиваем чистый список прокси в формате YAML, полученный из вашего sub.txt
-          curl -s "https://api.v1.mk/sub?target=clash&url=https://raw.githubusercontent.com/${{ github.repository }}/main/sub.txt&list=true" > proxies.yaml
+          # Скачиваем официальный локальный subconverter для Linux
+          curl -L -o subconverter.tar.gz https://github.com/tindy2013/subconverter/releases/latest/download/subconverter_linux64.tar.gz
+          tar -xzf subconverter.tar.gz
+          cd subconverter
+          chmod +x subconverter
           
-          # 2. Берем ваш шаблон и создаем финальный файл профиля
+          # Создаем базовый конфиг генерации (generate.ini)
+          echo "[subconverter]" > generate.ini
+          echo "target=clash" >> generate.ini
+          echo "url=../sub.txt" >> generate.ini
+          echo "output=../proxies_raw.yaml" >> generate.ini
+          
+          # Запускаем локальную конвертацию без сети
+          ./subconverter -g
+          cd ..
+
+      - name: Merge Proxies into Template
+        run: |
+          # 1. Проверяем, что файл создался, и очищаем его от лишних блоков, оставляя только чистый список прокси
+          if [ -f proxies_raw.yaml ]; then
+            # Вырезаем из сгенерированного файла всё, что идет после строки "proxies:"
+            sed -n '/^proxies:/,$p' proxies_raw.yaml | sed '1d' > proxies_clean.yaml
+          else
+            echo "Ошибка: Серверы не сконвертировались!" && exit 1
+          fi
+
+          # 2. Собираем итоговый конфиг из шаблона
           cat config_template.yaml > clash_profile.yaml
-          
-          # 3. Добавляем блок proxies: в конец файла
           echo "" >> clash_profile.yaml
           echo "proxies:" >> clash_profile.yaml
-          
-          # 4. Вставляем сгенерированные прокси с правильным отступом в 2 пробела
-          sed 's/^/  /' proxies.yaml >> clash_profile.yaml
-          
-          # 5. Автоматически собираем имена всех прокси и добавляем их в группу 🚀 Auto-Select
-          echo "" >> clash_profile.yaml
-          proxies_names=$(grep -E '^- name:' proxies.yaml | sed "s/- name: '法/'- 法/" | sed 's/- name: //')
-          
-          # Ищем строчку с "proxies:" внутри proxy-groups в шаблоне и вставляем имена туда
-          # Чтобы не усложнять, мы просто допишем имена в массив нашей группы автоматизации в шаблоне.
-          # Для этого убедитесь, что в вашем config_template.yaml группа настроена как в шаге ниже.
+          cat proxies_clean.yaml >> clash_profile.yaml
+
+          # 3. Автоматически прописываем имена серверов в группу автовыбора
+          # Извлекаем все имена серверов
+          grep -E '^[[:space:]]*- name:' proxies_clean.yaml | while read -r line; do
+            name=$(echo "$line" | sed 's/^[[:space:]]*- name:[[:space:]]*//')
+            # Вставляем имя сервера в секцию proxies группы Auto-Select (после строки "- DIRECT")
+            sed -i "/- DIRECT/a \      - $name" clash_profile.yaml
+          done
 
       - name: Commit and Push config
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add clash_profile.yaml
-          git commit -m "Update Clash Profile" || exit 0
+          git commit -m "Update Clash Profile with local subconverter" || exit 0
           git push
           
