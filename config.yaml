@@ -30,18 +30,18 @@ proxies:
     public-key: /pfnx4mNda47T7Hyi/tNfnSXzL9fL4EKQWNu31NSkmo
     short-id: ''
   client-fingerprint: chrome
-- name: Empire_VLESS-mlxwy0ph
+- name: 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
-  server: 207.174.30.11
-  port: 443
-  uuid: da476bc1-a147-4585-b838-36dc92c903b4
+  server: 104.245.243.6
+  port: 8443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
   tls: true
   udp: true
   network: tcp
-  servername: 207.174.30.11
+  servername: 104.245.243.6
   reality-opts:
-    public-key: hKb7fhe/vjWTEInEXpTO7z4ve/+FbZtGH6LCWRxRYjA
-    short-id: bf8ba2896346ad
+    public-key: Tv+cNH4ADnhrcIc/JIHdTCz2PJ3b4jkmLNAJ4OVKuzY
+    short-id: ''
   client-fingerprint: chrome
 - name: 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
@@ -54,19 +54,6 @@ proxies:
   servername: 104.245.242.4
   reality-opts:
     public-key: xIjbKxdcvohT7h7YKLulv287nKjzhilSCqFbphItQGI
-    short-id: ''
-  client-fingerprint: chrome
-- name: 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.243.8
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 104.245.243.8
-  reality-opts:
-    public-key: pd7ujYvrLsVhoEia4dhxPqmpAuapnezqMilXBSDIfgk
     short-id: ''
   client-fingerprint: chrome
 - name: 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -113,9 +100,8 @@ proxy-groups:
   type: url-test
   proxies:
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
+  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -127,9 +113,8 @@ proxy-groups:
   proxies:
   - 🚀 AUTO
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
+  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -139,9 +124,8 @@ proxy-groups:
   proxies:
   - 🚀 AUTO
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
+  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -151,9 +135,8 @@ proxy-groups:
   proxies:
   - 🚀 AUTO
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
+  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -163,9 +146,8 @@ proxy-groups:
   proxies:
   - 🚀 AUTO
   - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - Empire_VLESS-mlxwy0ph
+  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇫🇷 FR-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-01 ⚡🛜📶 ▷ ֎
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
