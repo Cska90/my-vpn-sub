@@ -17,19 +17,6 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 104.245.242.4
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 104.245.242.4
-  reality-opts:
-    public-key: /pfnx4mNda47T7Hyi/tNfnSXzL9fL4EKQWNu31NSkmo
-    short-id: ''
-  client-fingerprint: chrome
 - name: 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
   server: 104.245.243.6
@@ -164,7 +151,6 @@ proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -182,7 +168,6 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -198,7 +183,6 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -214,7 +198,6 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -230,7 +213,6 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇺🇸 US-02 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇺🇸 US-04 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇪🇸 ES-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
