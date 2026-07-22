@@ -56,6 +56,19 @@ proxies:
     public-key: WtLZK1KyhSpI3K+R4M3sLAHWPOgGPMgkL6RneL0OfCY
     short-id: ''
   client-fingerprint: chrome
+- name: 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  type: vless
+  server: 89.47.55.3
+  port: 8443
+  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
+  tls: true
+  udp: true
+  network: tcp
+  servername: 89.47.55.3
+  reality-opts:
+    public-key: sRTNjrosfFSiuQX7Yt7Ub5DJvFznfHSC3nlzFQ3H2WU
+    short-id: ''
+  client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
@@ -63,6 +76,7 @@ proxy-groups:
   - 🇳🇱 NL-02 ✅🛜📶 ▷
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -73,6 +87,7 @@ proxy-groups:
   - 🇳🇱 NL-02 ✅🛜📶 ▷
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -81,6 +96,7 @@ proxy-groups:
   - 🇳🇱 NL-02 ✅🛜📶 ▷
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -89,6 +105,7 @@ proxy-groups:
   - 🇳🇱 NL-02 ✅🛜📶 ▷
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -97,6 +114,7 @@ proxy-groups:
   - 🇳🇱 NL-02 ✅🛜📶 ▷
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🌐 DIRECT
   type: select
