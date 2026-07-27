@@ -17,17 +17,17 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: 🇳🇱 NL-02 ✅🛜📶 ▷
+- name: 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
-  server: 62.233.39.3
-  port: 8443
+  server: 88.218.44.4
+  port: 443
   uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
   tls: true
   udp: true
   network: tcp
-  servername: 62.233.39.3
+  servername: 88.218.44.4
   reality-opts:
-    public-key: sbBzEDf7UllUslF6LTfsM1qiOW322QKM343zhJD0Lng
+    public-key: EG3y7UktGRlzSZZ2oXT/YaO2gVP4ca3Xe6AQ0u9A5DQ
     short-id: ''
   client-fingerprint: chrome
 - name: 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -86,7 +86,7 @@ proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - 🇳🇱 NL-02 ✅🛜📶 ▷
+  - 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -98,7 +98,7 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇳🇱 NL-02 ✅🛜📶 ▷
+  - 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -108,7 +108,7 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇳🇱 NL-02 ✅🛜📶 ▷
+  - 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -118,7 +118,7 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇳🇱 NL-02 ✅🛜📶 ▷
+  - 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -128,7 +128,7 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇳🇱 NL-02 ✅🛜📶 ▷
+  - 🇳🇱 NL-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
