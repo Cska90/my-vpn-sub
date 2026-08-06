@@ -17,69 +17,17 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
+- name: 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   type: vless
-  server: 157.22.19.7
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 157.22.19.7
-  reality-opts:
-    public-key: tl7xSwczBM++oN16cxdLnAD8GMf8tA0f+FXE9ilCCjA
-    short-id: ''
-  client-fingerprint: chrome
-- name: 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 89.47.55.4
-  port: 443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 89.47.55.4
-  reality-opts:
-    public-key: sRTNjrosfFSiuQX7Yt7Ub5DJvFznfHSC3nlzFQ3H2WU
-    short-id: ''
-  client-fingerprint: chrome
-- name: 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 89.47.55.4
+  server: 104.245.242.9
   port: 8443
   uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
   tls: true
   udp: true
   network: tcp
-  servername: 89.47.55.4
+  servername: 104.245.242.9
   reality-opts:
-    public-key: sRTNjrosfFSiuQX7Yt7Ub5DJvFznfHSC3nlzFQ3H2WU
-    short-id: ''
-  client-fingerprint: chrome
-- name: 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 157.22.19.7
-  port: 8443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 157.22.19.7
-  reality-opts:
-    public-key: tl7xSwczBM++oN16cxdLnAD8GMf8tA0f+FXE9ilCCjA
-    short-id: ''
-  client-fingerprint: chrome
-- name: 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  type: vless
-  server: 89.47.55.4
-  port: 8443
-  uuid: 28a53b24-f7cc-c55d-75d6-86dfff4e3a4c
-  tls: true
-  udp: true
-  network: tcp
-  servername: 89.47.55.4
-  reality-opts:
-    public-key: WtLZK1KyhSpI3K+R4M3sLAHWPOgGPMgkL6RneL0OfCY
+    public-key: hwwiWVqYq5b7S0JaXNSxjWSEv/1OUFMaWJGHzeAGyRM
     short-id: ''
   client-fingerprint: chrome
 - name: 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
@@ -99,11 +47,7 @@ proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   url: http://cp.cloudflare.com/generate_204
   interval: 300
@@ -112,44 +56,28 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - 🇸🇪 SE-01 ⚡🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇩🇪 DE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇸🇪 SE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
-  - 🇦🇪 AE-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - DIRECT
 - name: 🌐 DIRECT
