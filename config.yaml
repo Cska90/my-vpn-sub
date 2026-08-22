@@ -56,6 +56,19 @@ proxies:
     public-key: EG3y7UktGRlzSZZ2oXT/YaO2gVP4ca3Xe6AQ0u9A5DQ
     short-id: ''
   client-fingerprint: chrome
+- name: '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
+  type: vless
+  server: 45.86.60.210
+  port: 443
+  uuid: 7c9cf8d5-2211-4797-ba42-7ceee4543b94
+  tls: true
+  udp: true
+  network: tcp
+  servername: 45.86.60.210
+  reality-opts:
+    public-key: nilJ07r1KZ0+KhmRNYeICXGhM9HeG9uxnRaqjYz3fWg
+    short-id: bbe7cea59ba5fc76
+  client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
@@ -63,6 +76,7 @@ proxy-groups:
   - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -73,6 +87,7 @@ proxy-groups:
   - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -81,6 +96,7 @@ proxy-groups:
   - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -89,6 +105,7 @@ proxy-groups:
   - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -97,6 +114,7 @@ proxy-groups:
   - 🇪🇸 ES-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇷🇺 RU-02 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
   - 🇳🇱 NL-01 ✅🛜📶 ▷ ⭐🅽 ֎ ᯤ
+  - '🌀 CYBERPORTAL | VLESS Black All RU | 🇨🇾 Кипр #21'
   - DIRECT
 - name: 🌐 DIRECT
   type: select
