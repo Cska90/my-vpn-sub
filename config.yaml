@@ -43,12 +43,26 @@ proxies:
     public-key: 8C7evg/SSrJbxMTaUqJoylqB9HSNsmBvmUlgs/c5EiU
     short-id: 79dfcb9d067445d0
   client-fingerprint: chrome
+- name: '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  type: vless
+  server: 45.9.14.159
+  port: 38444
+  uuid: 994fcbac-4433-4ea3-b42b-9073037ab5fa
+  tls: true
+  udp: true
+  network: tcp
+  servername: 45.9.14.159
+  reality-opts:
+    public-key: z6CzPNecp20sehGM6VjzL2C+vvKXqfiDKbfsTiUbJW0
+    short-id: aaaa
+  client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
   - '🇪🇸 Испания · 🇵🇱 Польша #34'
   - '🇩🇪 Германия #81'
+  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -58,6 +72,7 @@ proxy-groups:
   - 🚀 AUTO
   - '🇪🇸 Испания · 🇵🇱 Польша #34'
   - '🇩🇪 Германия #81'
+  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
   - DIRECT
 - name: 🎬 MEDIA
   type: select
@@ -65,6 +80,7 @@ proxy-groups:
   - 🚀 AUTO
   - '🇪🇸 Испания · 🇵🇱 Польша #34'
   - '🇩🇪 Германия #81'
+  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
   - DIRECT
 - name: 💬 SOCIAL
   type: select
@@ -72,6 +88,7 @@ proxy-groups:
   - 🚀 AUTO
   - '🇪🇸 Испания · 🇵🇱 Польша #34'
   - '🇩🇪 Германия #81'
+  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
   - DIRECT
 - name: 🛡 VPN
   type: select
@@ -79,6 +96,7 @@ proxy-groups:
   - 🚀 AUTO
   - '🇪🇸 Испания · 🇵🇱 Польша #34'
   - '🇩🇪 Германия #81'
+  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
   - DIRECT
 - name: 🌐 DIRECT
   type: select
