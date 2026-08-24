@@ -17,52 +17,24 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: '🇪🇸 Испания · 🇵🇱 Польша #34'
+- name: Cska-Free
   type: vless
-  server: 84.23.54.213
+  server: 194.58.44.137
   port: 443
-  uuid: 710fc22f-06b2-03f6-bb3e-f57c17b670a6
+  uuid: b841ad3e-c26b-4fc8-acfc-810643d83633
   tls: true
   udp: true
   network: tcp
-  servername: 84.23.54.213
+  servername: 194.58.44.137
   reality-opts:
-    public-key: 3tOekmYYkNW9IwHGuui6Y9bLmXoyiAmwAgtAdUAmDis
+    public-key: ''
     short-id: ''
-  client-fingerprint: chrome
-- name: '🇩🇪 Германия #81'
-  type: vless
-  server: node-17.optmarketshali.ru
-  port: 443
-  uuid: f8ddbec7-05c3-4669-934f-65df92b7694e
-  tls: true
-  udp: true
-  network: tcp
-  servername: node-17.optmarketshali.ru
-  reality-opts:
-    public-key: 8C7evg/SSrJbxMTaUqJoylqB9HSNsmBvmUlgs/c5EiU
-    short-id: 79dfcb9d067445d0
-  client-fingerprint: chrome
-- name: '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
-  type: vless
-  server: 45.9.14.159
-  port: 38444
-  uuid: 994fcbac-4433-4ea3-b42b-9073037ab5fa
-  tls: true
-  udp: true
-  network: tcp
-  servername: 45.9.14.159
-  reality-opts:
-    public-key: z6CzPNecp20sehGM6VjzL2C+vvKXqfiDKbfsTiUbJW0
-    short-id: aaaa
   client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - '🇪🇸 Испания · 🇵🇱 Польша #34'
-  - '🇩🇪 Германия #81'
-  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  - Cska-Free
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -70,33 +42,25 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - '🇪🇸 Испания · 🇵🇱 Польша #34'
-  - '🇩🇪 Германия #81'
-  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  - Cska-Free
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - '🇪🇸 Испания · 🇵🇱 Польша #34'
-  - '🇩🇪 Германия #81'
-  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  - Cska-Free
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - '🇪🇸 Испания · 🇵🇱 Польша #34'
-  - '🇩🇪 Германия #81'
-  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  - Cska-Free
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - '🇪🇸 Испания · 🇵🇱 Польша #34'
-  - '🇩🇪 Германия #81'
-  - '🌀 CYBERPORTAL | VLESS Universal | 🇳🇱 Нидерланды #186'
+  - Cska-Free
   - DIRECT
 - name: 🌐 DIRECT
   type: select
