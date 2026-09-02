@@ -1,1 +1,1 @@
-vless://dd4ee77f-f319-6941-4ebd-f82dbcdb4ad4@62.233.39.7:8443?mode=gun&security=reality&encryption=none&pbk=hwwiWVqYq5b7S0JaXNSxjWSEv_1OUFMaWJGHzeAGyRM&fp=chrome&type=grpc&serviceName=TunService&sni=download.nvidia.com#%F0%9F%87%AA%F0%9F%87%B8%20ES-01%20%E2%9C%85%F0%9F%9B%9C%F0%9F%93%B6%20%E2%96%B7%20%E2%AD%90%F0%9F%85%BD%20%D6%8E%20%E1%AF%A4
+https://cska1949.online:2096/sub/skn9y2jw5sy77kte
