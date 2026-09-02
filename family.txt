@@ -1,1 +1,2 @@
 hysteria2://vh21vx8yif6oef23@cska1949.online:32184?alpn=h3&fp=chrome&obfs=salamander&obfs-password=ifzx6r7sfhibgnlp&security=tls&sni=cska1949.online#%F0%9F%87%B3%F0%9F%87%B1%20Hysteria-Vip
+vless://24ed5dce-23e8-4a43-be02-7b922622e8b2@cska1949.online:443?authority=&encryption=none&fp=chrome&pbk=0ZEekw2UWFt7pwuWbU-uc1VnXlP9Kcu4Y6HLDl2ZIn8&security=reality&serviceName=&sid=7c6a176aef87ffa3&sni=support-shield.nvidia.es&spx=%2F23b3f02df354fe6&type=grpc#%20%F0%9F%87%B3%F0%9F%87%B1%20Vless-Vip
