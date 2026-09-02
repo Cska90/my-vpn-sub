@@ -1,1 +1,1 @@
-https://cska1949.online:2096/skn9y2jw5sy77kte
+vless://24ed5dce-23e8-4a43-be02-7b922622e8b2@cska1949.online:443?authority=&encryption=none&fp=chrome&pbk=0ZEekw2UWFt7pwuWbU-uc1VnXlP9Kcu4Y6HLDl2ZIn8&security=reality&serviceName=&sid=d7&sni=blogs.nvidia.co.kr&spx=%2F23b3f02df354fe6&type=grpc#%20%F0%9F%87%B3%F0%9F%87%B1%20Vless-Vip
