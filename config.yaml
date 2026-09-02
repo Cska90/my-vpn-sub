@@ -17,24 +17,24 @@ dns:
   - https://doh.pub/dns-query
   - https://dns.google/dns-query
 proxies:
-- name: Cska-Free
+- name: N
   type: vless
-  server: 194.58.44.137
-  port: 443
-  uuid: b841ad3e-c26b-4fc8-acfc-810643d83633
+  server: 147.78.182.3
+  port: 8443
+  uuid: dd4ee77f-f319-6941-4ebd-f82dbcdb4ad4
   tls: true
   udp: true
   network: tcp
-  servername: 194.58.44.137
+  servername: 147.78.182.3
   reality-opts:
-    public-key: ''
+    public-key: EG3y7UktGRlzSZZ2oXT/YaO2gVP4ca3Xe6AQ0u9A5DQ
     short-id: ''
   client-fingerprint: chrome
 proxy-groups:
 - name: 🚀 AUTO
   type: url-test
   proxies:
-  - Cska-Free
+  - N
   url: http://cp.cloudflare.com/generate_204
   interval: 300
   tolerance: 50
@@ -42,25 +42,25 @@ proxy-groups:
   type: select
   proxies:
   - 🚀 AUTO
-  - Cska-Free
+  - N
   - DIRECT
 - name: 🎬 MEDIA
   type: select
   proxies:
   - 🚀 AUTO
-  - Cska-Free
+  - N
   - DIRECT
 - name: 💬 SOCIAL
   type: select
   proxies:
   - 🚀 AUTO
-  - Cska-Free
+  - N
   - DIRECT
 - name: 🛡 VPN
   type: select
   proxies:
   - 🚀 AUTO
-  - Cska-Free
+  - N
   - DIRECT
 - name: 🌐 DIRECT
   type: select
