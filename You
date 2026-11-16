@@ -1,3 +1,1 @@
-#profile-title: base64:VlBOINCU0L7QvA==
-#announce: 🚀 ИНСТРУКЦИЯ ПО ПОДКЛЮЧЕНИЮ:\n1. Самый быстрый — Hysteria2 (выбираем его первым).\n2. Запасной вариант — VLESS.\n3. Если не работает: нажмите проверку задержки (спидометр) — где зелёные цифры, тот сервер и работает.\n4. Если завис Hysteria2: выключите и снова включите VPN (или авиарежим).
-hysteria2://642043fc-a66b-443f-bc76-d9dc44dd890a@api.cska1949.online:8443/?sni=api.cska1949.online&alpn=h3#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%C2%B7%20Hysteria2%20%C2%B7%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9
+hysteria2://86eb987e-4089-4711-ad67-cc561f514b4b@api.cska1949.online:8443/?sni=api.cska1949.online&alpn=h3#%F0%9F%8C%90%20%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D1%80%20%C2%B7%20Hysteria2%20%C2%B7%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9
