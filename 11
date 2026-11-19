@@ -1,1 +1,7 @@
-hysteria2://642043fc-a66b-443f-bc76-d9dc44dd890a@api.cska1949.online:8443/?sni=api.cska1949.online&alpn=h3#%F0%9F%87%BA%F0%9F%87%B8%20%D0%A1%D0%A8%D0%90%20%C2%B7%20Hysteria2%20%C2%B7%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%BE%D0%B9
+#profile-title: LA
+#announce: 🚀 ИНСТРУКЦИЯ ПО ПОДКЛЮЧЕНИЮ:\n1. Самый быстрый — Hysteria2 (выбираем его первым).\n2. Запасной вариант — VLESS.\n3. Если не работает: нажмите проверку задержки (спидометр) — где зелёные цифры, тот сервер и работает.\n4. Если завис Hysteria2: выключите и снова включите VPN (или авиарежим).
+vless://a95bea91-bc40-44ef-8ced-1154636c67f1@panel.cska1949.online:443?encryption=none&fp=firefox&pbk=IYa0lSvKoT7qRReMt-kdq_E3go9Dl9SEcUkGbg5zXXo&security=reality&sid=5fe0c2e7065e125d&sni=cdn1.cska1949.online&spx=%2F910ff020ecf0f47&support-x25519mlkem768=true&type=tcp#%F0%9F%87%A7%F0%9F%87%AC%20reality-LA
+vless://a95bea91-bc40-44ef-8ced-1154636c67f1@panel.cska1949.online:443?alpn=http%2F1.1&encryption=none&fp=firefox&host=panel.cska1949.online&path=%2F41696%2FL8jCl1i5X1&security=tls&type=ws#%F0%9F%87%A7%F0%9F%87%AC%20ws-LA
+vless://a95bea91-bc40-44ef-8ced-1154636c67f1@panel.cska1949.online:443?alpn=h2%2Chttp%2F1.1&encryption=none&extra=%7B%22mode%22%3A%22stream-up%22%7D&fp=firefox&host=&mode=stream-up&path=%2FXd2G05gYh5dn63gO&security=tls&type=xhttp#%F0%9F%87%A7%F0%9F%87%AC%20xhttp-LA
+hysteria2://kum92cy10w5lt798@cdn1.cska1949.online:443?alpn=h3&security=tls&sni=cdn1.cska1949.online#%F0%9F%87%A7%F0%9F%87%AC%20hysteria2-LA
+vless://a95bea91-bc40-44ef-8ced-1154636c67f1@static.cska1949.online:443?alpn=http%2F1.1&encryption=none&security=tls&sni=static.cska1949.online&type=tcp#%F0%9F%87%A7%F0%9F%87%AC%20XTLS-LA
