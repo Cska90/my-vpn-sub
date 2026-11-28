@@ -1,5 +1,4 @@
 #profile-title: PZ
-#routing: happ://routing/onadd/eyJOYW1lIjoiUlUgRGlyZWN0IiwiR2xvYmFsUHJveHkiOiJ0cnVlIiwiRGlyZWN0U2l0ZXMiOlsiZ2Vvc2l0ZTpydSIsImdlb3NpdGU6Y2F0ZWdvcnktcnUiLCJnZW9zaXRlOmNhdGVnb3J5LWdvdi1ydSJdLCJEaXJlY3RJcCI6WyJnZW9pcDpydSIsImdlb2lwOnByaXZhdGUiXSwiRG9tYWluU3RyYXRlZ3kiOiJJUElmTm9uTWF0Y2gifQ==
 #announce: ⚡ Сначала выбирайте WS или Hysteria2 • 📱 «Яндекс» — для мобильного, ТОЛЬКО если остальные не работают • ⏱ Нет связи: нажмите спидометр (зелёные цифры = рабочий)
 vless://575c2328-7805-4a7c-a34d-4085436e3381@panel.cska1949.online:443?alpn=http%2F1.1&encryption=none&fp=firefox&host=panel.cska1949.online&path=%2F41696%2FL8jCl1i5X1&security=tls&type=ws#%F0%9F%87%A7%F0%9F%87%AC%20ws-PZ
 hysteria2://d6mejvo0acixff88@cdn1.cska1949.online:443?alpn=h3&security=tls&sni=cdn1.cska1949.online#%F0%9F%87%A7%F0%9F%87%AC%20hysteria2-PZ
